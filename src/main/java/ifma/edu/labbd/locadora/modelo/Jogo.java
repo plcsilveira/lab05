@@ -13,7 +13,10 @@ public class Jogo implements EntidadeBase{
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
     private String titulo;
+
+    @OneToMany(mappedBy = "jogo")
+    private List<JogoPlataforma> plataformas;
+
 
 }

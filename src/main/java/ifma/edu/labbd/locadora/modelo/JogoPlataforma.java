@@ -9,9 +9,19 @@ import java.util.*;
 @Entity
 public class JogoPlataforma {
 
-    @EqualsAndHashCode.Include
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @EmbeddedId
+    private JogoPlataformaId id;
+
+    @ManyToOne
+    @MapsId("jogoId")
+    @JoinColumn(name = "jogo_id")
+    private Jogo jogo;
+
+    @ManyToOne
+    @MapsId("plataformaId")
+    @JoinColumn(name = "plataforma_id")
+    private Plataforma plataforma;
 
     private BigDecimal precoDiario;
+
 }

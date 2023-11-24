@@ -16,7 +16,10 @@ public class Plataforma implements EntidadeBase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
     private String nome;
+
+    @OneToMany(mappedBy = "plataforma")
+    private List<JogoPlataforma> jogos;
+
 
 }
