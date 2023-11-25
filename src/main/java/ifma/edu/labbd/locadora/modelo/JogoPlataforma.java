@@ -2,12 +2,11 @@ package ifma.edu.labbd.locadora.modelo;
 import lombok.*;
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.*;
 
 @Getter @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class JogoPlataforma {
+public class JogoPlataforma implements EntidadeBase{
 
     @EmbeddedId
     private JogoPlataformaId id;
