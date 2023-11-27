@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -21,7 +22,7 @@ public class Plataforma implements EntidadeBase <Integer>{
     private String nome;
 
     @OneToMany(mappedBy = "plataforma")
-    private List<JogoPlataforma> jogos;
+    private List<JogoPlataforma> jogos = new ArrayList<>();
 
 
 }

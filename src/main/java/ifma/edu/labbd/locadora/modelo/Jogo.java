@@ -18,7 +18,6 @@ public class Jogo implements EntidadeBase<Integer>{
     private String titulo;
 
     @OneToMany(mappedBy = "jogo")
-    private List<JogoPlataforma> plataformas;
-
+    private List<JogoPlataforma> plataformas = new ArrayList<>();
 
 }

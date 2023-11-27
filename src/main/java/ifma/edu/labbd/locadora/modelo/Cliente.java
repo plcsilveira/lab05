@@ -22,4 +22,14 @@ public class Cliente implements EntidadeBase<Integer>{
 
     @OneToMany(mappedBy = "cliente")
     private List<ConsolePorCliente> consolesPorCliente;
+
+    public Cliente(String nome, String email, String telefone, String senha){
+        this.email = email;
+        this.senha = senha;
+        this.nome = nome;
+        this.telefone = telefone;
+    }
+    public Cliente(){
+
+    }
 }
