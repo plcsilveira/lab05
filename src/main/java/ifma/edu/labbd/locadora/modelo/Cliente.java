@@ -6,9 +6,10 @@ import javax.persistence.*;
 import java.util.List;
 @Entity
 @Data
-public class Cliente implements EntidadeBase{
+public class Cliente implements EntidadeBase<Integer>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "cliente_id")
     private Integer id;
 
     private String nome;

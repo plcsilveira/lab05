@@ -3,10 +3,10 @@ import lombok.*;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-@Getter @Setter
+@Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class JogoPlataforma implements EntidadeBase{
+public class JogoPlataforma implements EntidadeBase<JogoPlataformaId>{
 
     @EmbeddedId
     private JogoPlataformaId id;

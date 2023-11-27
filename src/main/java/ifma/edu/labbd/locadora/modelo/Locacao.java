@@ -6,9 +6,10 @@ import java.time.LocalDate;
 import java.util.*;
 @Entity
 @Data
-public class Locacao implements EntidadeBase{
+public class Locacao implements EntidadeBase<Integer>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "locacao_id")
     private Integer id;
 
     private LocalDate data;

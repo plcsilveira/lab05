@@ -1,5 +1,6 @@
 package ifma.edu.labbd.locadora.modelo;
 
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,14 +8,14 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class Plataforma implements EntidadeBase {
+public class Plataforma implements EntidadeBase <Integer>{
     @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "plataforma_id")
     private Integer id;
 
     private String nome;

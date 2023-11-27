@@ -4,13 +4,15 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.*;
 
-@Getter @Setter
+@Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class Jogo implements EntidadeBase{
+
+public class Jogo implements EntidadeBase<Integer>{
 
     @EqualsAndHashCode.Include
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "jogo_id")
     private Integer id;
 
     private String titulo;

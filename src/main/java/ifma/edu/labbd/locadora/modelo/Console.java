@@ -7,9 +7,10 @@ import java.util.*;
 
 @Entity
 @Data
-public class Console implements EntidadeBase{
+public class Console implements EntidadeBase<Integer>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "console_id")
     private Integer id;
 
     private String nome;
@@ -24,5 +25,10 @@ public class Console implements EntidadeBase{
             joinColumns = @JoinColumn(name = "console_id"),
             inverseJoinColumns = @JoinColumn(name = "acessorio_id")
     )
-    private List<Acessorio> acessorios;
+    private List<Acessorio> acessorios; // Inicializa a lista no construtor
+
+
+    public Console(){
+        this.acessorios = new ArrayList<Acessorio>();
+    }
 }
