@@ -70,9 +70,9 @@ public class CadastrarJogo {
 
     public static void main(String[] args) throws Exception{
         Jogo jogo = new Jogo();
-        jogo.setTitulo("Mario Bros");
+        jogo.setTitulo("Resedente Evil");
         Plataforma plataforma = new Plataforma();
-        plataforma.setNome("Nitendo");
+        plataforma.setNome("Xbox");
         CadastrarJogo cj = new CadastrarJogo();
         cj.CadastrarJogo(jogo, plataforma, BigDecimal.valueOf(10));
     }

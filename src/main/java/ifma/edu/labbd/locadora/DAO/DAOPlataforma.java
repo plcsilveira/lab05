@@ -26,7 +26,7 @@ public class DAOPlataforma {
         daoGenerico.remove(t);
     }
     public Plataforma buscaPorNome(String nome) {
-        String jpql = "SELECT p FROM Plataforma p WHERE j.nome = :nome";
+        String jpql = "SELECT p FROM Plataforma p WHERE p.nome = :nome";
         return manager.createQuery(jpql, Plataforma.class)
                 .setParameter("nome", nome)
                 .getResultList()
