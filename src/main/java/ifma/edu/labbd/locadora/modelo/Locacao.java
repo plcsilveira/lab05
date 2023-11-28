@@ -19,6 +19,6 @@ public class Locacao implements EntidadeBase<Integer>{
     private Cliente cliente;
 
     @OneToMany(mappedBy = "locacao")
-    private List<ItemLocacao> itensLocacao;
+    private List<ItemLocacao> itensLocacao = new ArrayList<ItemLocacao>();
 
 }

@@ -30,31 +30,28 @@ public class CadastrarJogo {
     public Jogo CadastrarJogo(Jogo jogo, Plataforma plataforma, BigDecimal preco) throws Exception {
         try {
             manager.getTransaction().begin();
-            if (jogo.getId() != null) {
-                Jogo jogoExistente = daoJogo.buscaPor(jogo.getId());
-                if (Objects.nonNull(jogoExistente) && !Objects.equals(jogo, jogoExistente)) {
-                    throw new Exception("Jogo já cadastrado");
-                }
+            JogoPlataforma plataformaJogoExistente = daoJogoPlataforma.buscaPorJogoEPlataforma(jogo, plataforma);
+            if (plataformaJogoExistente != null) {
+                throw new Exception("Jogo já cadastrado para essa plataforma");
             }
-            if (plataforma.getId() != null) {
-                Plataforma plataformaExistente = daoPlataforma.buscaPor(plataforma.getId());
-                if (Objects.nonNull(plataformaExistente) && !Objects.equals(plataforma, plataformaExistente)) {
-                    throw new Exception("Plataforma já cadastrado");
-                }
-            }
+
             Jogo jogoSalvo = daoJogo.salvaOuAtualiza(jogo);
-            daoPlataforma.salvaOuAtualiza(plataforma);
+            Plataforma plataformaSalva = daoPlataforma.salvaOuAtualiza(plataforma);
+
             JogoPlataformaId plataformaJogoId = new JogoPlataformaId();
-            plataformaJogoId.setJogoId(jogo.getId());
-            plataformaJogoId.setPlataformaId(plataforma.getId());
+            plataformaJogoId.setJogoId(jogoSalvo.getId());
+            plataformaJogoId.setPlataformaId(plataformaSalva.getId());
+
             JogoPlataforma plataformaJogo = new JogoPlataforma();
             plataformaJogo.setPrecoDiario(preco);
-            plataformaJogo.setPlataforma(plataforma);
-            plataformaJogo.setJogo(jogo);
+            plataformaJogo.setPlataforma(plataformaSalva);
+            plataformaJogo.setJogo(jogoSalvo);
             plataformaJogo.setId(plataformaJogoId);
+
             daoJogoPlataforma.salvaOuAtualiza(plataformaJogo);
             jogo.getPlataformas().add(plataformaJogo);
             plataforma.getJogos().add(plataformaJogo);
+
             manager.getTransaction().commit();
             System.out.println("Jogo cadastrado com sucesso");
             return jogoSalvo;
@@ -68,9 +65,9 @@ public class CadastrarJogo {
 
     public static void main(String[] args) throws Exception{
         Jogo jogo = new Jogo();
-        jogo.setTitulo("Call Of Duty");
+        jogo.setTitulo("Mario Bros");
         Plataforma plataforma = new Plataforma();
-        plataforma.setNome("Xbox");
+        plataforma.setNome("Nitendo");
         CadastrarJogo cj = new CadastrarJogo();
         cj.CadastrarJogo(jogo, plataforma, BigDecimal.valueOf(10));
     }

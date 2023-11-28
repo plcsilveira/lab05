@@ -3,6 +3,7 @@ package ifma.edu.labbd.locadora.modelo;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 @Entity
 @Data
@@ -18,10 +19,10 @@ public class Cliente implements EntidadeBase<Integer>{
     private String senha;
 
     @OneToMany(mappedBy = "cliente")
-    private List<Locacao> locacoes;
+    private List<Locacao> locacoes = new ArrayList<Locacao>();
 
     @OneToMany(mappedBy = "cliente")
-    private List<ConsolePorCliente> consolesPorCliente;
+    private List<ConsolePorCliente> consolesPorCliente = new ArrayList<ConsolePorCliente>();
 
     public Cliente(String nome, String email, String telefone, String senha){
         this.email = email;

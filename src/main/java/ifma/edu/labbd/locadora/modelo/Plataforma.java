@@ -22,7 +22,7 @@ public class Plataforma implements EntidadeBase <Integer>{
     private String nome;
 
     @OneToMany(mappedBy = "plataforma")
-    private List<JogoPlataforma> jogos = new ArrayList<>();
+    private List<JogoPlataforma> jogos = new ArrayList<JogoPlataforma>();
 
 
 }
