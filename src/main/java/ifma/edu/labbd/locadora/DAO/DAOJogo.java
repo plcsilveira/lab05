@@ -28,7 +28,16 @@ public class DAOJogo {
         TypedQuery<Jogo> query = manager.createQuery(jpql, Jogo.class);
         return query.getResultList();
     }
-
+    public Jogo buscaPorNome(String titulo) {
+        String jpql = "SELECT j FROM Jogo j WHERE j.titulo = :titulo";
+        return manager.createQuery(jpql, Jogo.class)
+                .setParameter("titulo", titulo)
+                .setMaxResults(1)
+                .getResultList()
+                .stream()
+                .findFirst()
+                .orElse(null);
+    }
     public void remove(Jogo t) {
         daoGenerico.remove(t);
     }

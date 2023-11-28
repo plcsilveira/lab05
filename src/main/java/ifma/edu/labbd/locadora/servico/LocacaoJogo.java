@@ -30,12 +30,16 @@ public class LocacaoJogo {
         this.daoJogoPlataforma = new DAOJogoPlataforma(manager);
     }
 
-    public BigDecimal RealizarLocacao(List<Jogo> jogos, Plataforma plataforma, Cliente cliente, Integer dias) {
+    public BigDecimal RealizarLocacao(List<String> jogos, String plataforma, Cliente cliente, Integer dias) {
         manager.getTransaction().begin();
         cliente = daoCliente.buscaPor(cliente.getId());
-        plataforma = daoPlataforma.buscaPor(plataforma.getId());
-        jogos = daoJogo.consultarTodosOsJogos();
-        jogos.remove(jogos.get(0));
+        Plataforma plataformaObj = daoPlataforma.buscaPorNome(plataforma);
+        int tam = jogos.size();
+        List<Jogo> jogosObj = new ArrayList<Jogo>();
+        for(int i = 0; i<tam;i++){
+            jogosObj.add(daoJogo.buscaPorNome(jogos.get(0)));
+        }
+        //jogos.remove(jogos.get(0));
         BigDecimal precoFinal = BigDecimal.ZERO;
         try {
             Cliente clientePersistido = daoCliente.buscaPor(cliente.getId());
@@ -47,10 +51,10 @@ public class LocacaoJogo {
             locacao.setCliente(clientePersistido);
             locacao.setData(LocalDate.now());
 
-            for (Jogo jogo : jogos) {
-                JogoPlataforma jogoPlataforma = daoJogoPlataforma.buscaPorJogoEPlataforma(jogo, plataforma);
+            for (Jogo jogo : jogosObj) {
+                JogoPlataforma jogoPlataforma = daoJogoPlataforma.buscaPorJogoEPlataforma(jogo, plataformaObj);
 
-                if (daoJogoPlataforma.consultarDisponibilidadeJogo(jogo, plataforma)) {
+                if (daoJogoPlataforma.consultarDisponibilidadeJogo(jogo, plataformaObj)) {
                     ItemLocacao itemLocacao = new ItemLocacao();
                     itemLocacao.setDias(dias);
                     itemLocacao.setJogoPlataforma(jogoPlataforma);
@@ -79,8 +83,10 @@ public class LocacaoJogo {
         cliente.setId(3);
         Plataforma plataforma = new Plataforma();
         plataforma.setId(4);
-        List<Jogo> jogos = new ArrayList<Jogo>();
+        List<String> jogos = new ArrayList<>();
+        jogos.add("Call Of Duty Black Ops 2");
+        jogos.add("Resedente Evil");
         LocacaoJogo locacao = new LocacaoJogo();
-        locacao.RealizarLocacao(jogos, plataforma, cliente, 10);
+        locacao.RealizarLocacao(jogos, "Xbox", cliente, 10);
     }
 }

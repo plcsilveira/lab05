@@ -34,18 +34,23 @@ public class CadastrarJogo {
             if (plataformaJogoExistente != null) {
                 throw new Exception("Jogo já cadastrado para essa plataforma");
             }
-
-            Jogo jogoSalvo = daoJogo.salvaOuAtualiza(jogo);
-            Plataforma plataformaSalva = daoPlataforma.salvaOuAtualiza(plataforma);
+            Jogo jogoExistente = daoJogo.buscaPorNome(jogo.getTitulo());
+            Plataforma plataformaExistente = daoPlataforma.buscaPorNome(plataforma.getNome());
+            if(jogoExistente == null){
+                jogoExistente  =  daoJogo.salvaOuAtualiza(jogo);
+            }
+            if(plataformaExistente == null){
+                plataformaExistente = daoPlataforma.salvaOuAtualiza(plataforma);
+            }
 
             JogoPlataformaId plataformaJogoId = new JogoPlataformaId();
-            plataformaJogoId.setJogoId(jogoSalvo.getId());
-            plataformaJogoId.setPlataformaId(plataformaSalva.getId());
+            plataformaJogoId.setJogoId(jogoExistente.getId());
+            plataformaJogoId.setPlataformaId(plataformaExistente.getId());
 
             JogoPlataforma plataformaJogo = new JogoPlataforma();
             plataformaJogo.setPrecoDiario(preco);
-            plataformaJogo.setPlataforma(plataformaSalva);
-            plataformaJogo.setJogo(jogoSalvo);
+            plataformaJogo.setPlataforma(plataformaExistente);
+            plataformaJogo.setJogo(jogoExistente);
             plataformaJogo.setId(plataformaJogoId);
 
             daoJogoPlataforma.salvaOuAtualiza(plataformaJogo);
@@ -54,7 +59,7 @@ public class CadastrarJogo {
 
             manager.getTransaction().commit();
             System.out.println("Jogo cadastrado com sucesso");
-            return jogoSalvo;
+            return jogoExistente;
         } catch (Exception e) {
             manager.getTransaction().rollback();
             throw new RuntimeException(e);
